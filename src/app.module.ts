@@ -8,15 +8,16 @@ import { GenresModule } from './genres/genres.module'; // Import GenresModule
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'postgres',
+      type: 'mysql',
+      host: '127.0.0.1',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'movies',
       entities: [Movie, Genre],
       //don't use in real projects
       synchronize: true,
+      autoLoadEntities: true,
     }),
     // Import modules for movies and genres here
     MoviesModule,
