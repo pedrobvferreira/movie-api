@@ -12,7 +12,7 @@ import { GenresModule } from './genres/genres.module'; // Import GenresModule
       host: 'localhost',
       port: 3307,
       username: 'root',
-      password: 'root',
+      password: '',
       database: 'movies',
       entities: [Movie, Genre],
       //don't use in real projects

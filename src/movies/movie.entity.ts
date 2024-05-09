@@ -11,9 +11,9 @@ export class Movie {
   @Column({ type: 'text', nullable: false })
   description: string;
 
-  @Column({ type: 'date', nullable: false })
+  @Column({ type: 'date', nullable: false})
   releaseDate: Date;
 
   @Column('simple-array')
-  genres: string[];
+  genre: string[];
 }

@@ -12,5 +12,5 @@ export class MovieDto {
 
   @IsNotEmpty()
   @IsArray()
-  genres: string[];
+  genre: string[];
 }

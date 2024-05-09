@@ -15,14 +15,24 @@ export class MoviesService {
         return this.moviesRepository.find();
     }
 
-    async findMovieById(id: number): Promise<Movie | undefined> {
+    async findMoviesPaginated(page: number = 1, limit: number = 10): Promise<Movie[]> {
+        return this.moviesRepository.find({
+          take: limit,
+          skip: (page - 1) * limit,
+        });
+    }
+
+    async findMovieById(id: number): Promise<Movie> {
         const findOneOptions: FindOneOptions<Movie> = { where: { id } };
         return this.moviesRepository.findOne(findOneOptions);
     }
 
-    async findMovieByTitle(title: string): Promise<Movie | undefined> {
-        const findOneOptions: FindOneOptions<Movie> = { where: { title } };
-        return this.moviesRepository.findOne(findOneOptions);
+    async findByTitle(title: string): Promise<Movie[]> {
+        return this.moviesRepository.find({ where: { title } });
+    }
+
+    async findByGenre(genre: string): Promise<Movie[]> {
+        return this.moviesRepository.find({ where: { genre } });
     }
 
     async addMovie(movieData: Partial<Movie>): Promise<Movie> {
@@ -31,37 +41,20 @@ export class MoviesService {
         return this.moviesRepository.save(movie);
     }
 
-    async addMovieDto(movieDto: MovieDto): Promise<Movie> {
-        const existingMovie = await this.findMovieByTitle(movieDto.title);
-        if (existingMovie) {
-          throw new Error('Movie already exists!');
-        }
-        const movie = new Movie();
-        movie.title = movieDto.title;
-        movie.description = movieDto.description;
-        movie.releaseDate = movieDto.releaseDate;
-        movie.genres = movieDto.genres;
-        return this.moviesRepository.save(movie);
-    }
-
     async updateMovie(id: number, movieData: Partial<Movie>): Promise<Movie> {
+        const movie = await this.findMovieById(id);
+        if (!movie) {
+          throw new Error(`Movie with ID ${id} not found.`);
+        }
         await this.moviesRepository.update(id, movieData);
         return this.findMovieById(id);
     }
-
-    async updateMovieDto(id: number, movieDto: MovieDto): Promise<Movie> {
-        const movie = await this.findMovieById(id);
-        if (!movie) {
-          throw new Error('Movie not found');
-        }
-        movie.title = movieDto.title;
-        movie.description = movieDto.description;
-        movie.releaseDate = movieDto.releaseDate;
-        movie.genres = movieDto.genres;
-        return this.moviesRepository.save(movie);
-      }
     
     async deleteMovie(id: number): Promise<void> {
-        await this.moviesRepository.delete(id);
+        const movie = await this.findMovieById(id);
+        if (!movie) {
+          throw new Error(`Movie with ID ${id} not found.`);
+        }
+        const result = await this.moviesRepository.delete(id);
     }
 }

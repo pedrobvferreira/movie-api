@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param, Body, Query } from '@nestjs/common';
 import { GenresService } from './genres.service';
 import { Genre } from './genre.entity';
 
@@ -9,6 +9,11 @@ export class GenresController {
     @Get()
     async listGenres(): Promise<Genre[]> {
         return this.genresService.listGenres();
+    }
+
+    @Get()
+    async findGenresPaginated(@Query('page') page: number = 1, @Query('limit') limit: number = 10): Promise<Genre[]> {
+        return this.genresService.findGenresPaginated(page, limit);
     }
 
     @Post()

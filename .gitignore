@@ -5,6 +5,7 @@
 /data-db
 /my-db
 /pg-data
+/data
 
 # Logs
 logs
