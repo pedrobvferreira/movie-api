@@ -6,10 +6,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Movies API')
-    .setDescription('The Movies API description')
+    .setTitle('NestJS Movies API')
+    .setDescription('Create a Movie REST API using NestJS')
     .setVersion('1.0')
-    .addTag('movies')
+    .addTag('Movies')
+    .addTag('Genres') // Add another tag
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

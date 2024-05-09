@@ -1,8 +1,9 @@
 import { Controller, Get, Post, Delete, Param, Body, Query } from '@nestjs/common';
 import { GenresService } from './genres.service';
 import { Genre } from './genre.entity';
-import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Genres')
 @Controller('genres')
 export class GenresController {
     constructor(private readonly genresService: GenresService) {}
@@ -18,7 +19,7 @@ export class GenresController {
     @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number', example: 1 })
     @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Items per page', example: 10 })
     @ApiResponse({ status: 200, description: 'Returns an array of genres with pagination', type: Genre, isArray: true })
-    @Get()
+    @Get("/paginated")
     async findGenresPaginated(@Query('page') page: number = 1, @Query('limit') limit: number = 10): Promise<Genre[]> {
         return this.genresService.findGenresPaginated(page, limit);
     }

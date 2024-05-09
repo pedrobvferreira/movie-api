@@ -1,8 +1,9 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, Query } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './movie.entity';
-import { ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Movies')
 @Controller('movies')
 export class MoviesController {
     constructor(private readonly moviesService: MoviesService) {}
@@ -18,7 +19,7 @@ export class MoviesController {
     @ApiResponse({ status: 200, description: 'Return paginated movies.' })
     @ApiQuery({ name: 'page', type: Number, required: false })
     @ApiQuery({ name: 'limit', type: Number, required: false })
-    @Get()
+    @Get("/paginated")
     async findMoviesPaginated(@Query('page') page: number = 1, @Query('limit') limit: number = 10): Promise<Movie[]> {
         return this.moviesService.findMoviesPaginated(page, limit);
     }
