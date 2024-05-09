@@ -55,7 +55,7 @@ $ npm run test:cov
 ```bash
 $ docker compose up -d
 ```
-Once the containers are up and running, we can access the NestJS application at http://localhost:3000 and phpMyadmin at http://localhost:8080.
+Once the containers are up and running, we can access the NestJS application at http://localhost:3000 and phpMyadmin at http://localhost:8081.
 
 
 ## Rebuild our app

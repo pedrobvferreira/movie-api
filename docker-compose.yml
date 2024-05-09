@@ -7,13 +7,13 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: movie
+      MYSQL_DATABASE: movies
     ports:
       - "6033:3306"
     volumes:
       - ./data-db:/var/lib/mysql
     expose:
-      - "3306"
+      - '3306'
       
   phpmyadmin:
     image: phpmyadmin:latest
@@ -25,11 +25,13 @@ services:
       MYSQL_USERNAME: root
       MYSQL_PASSWORD: root
     ports:
-      - 8080:80
+      - '8081:80'
     depends_on:
      - mysql_db
     volumes:
       - /sessions
+    expose:
+      - '8081'
 
   app:
     build:
@@ -44,3 +46,5 @@ services:
       - mysql_db
     volumes:
       - ./src:/app/src
+    expose:
+      - '3000'
