@@ -1,7 +1,7 @@
 ## Backend Coding Challenge: NestJS Movie API
 
 <p align="center">
-  npm v10.5.2, node v20.13.0, docker 20.10.12
+  npm v10.5.2, node v20.13.0, MyQSL, Swagger
 </p>
 
 ## Description
