@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, Query } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './movie.entity';
-import { ApiOperation, ApiResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiQuery, ApiTags, ApiBody } from '@nestjs/swagger';
 
 @ApiTags('Movies')
 @Controller('movies')
@@ -26,6 +26,7 @@ export class MoviesController {
 
     @ApiOperation({ summary: 'Add a new movie' })
     @ApiResponse({ status: 201, description: 'The movie has been successfully created.' })
+    @ApiBody({ type: Movie })
     @Post()
     async addMovie(@Body() movieData: Partial<Movie>): Promise<Movie> {
         return this.moviesService.addMovie(movieData);
@@ -33,6 +34,7 @@ export class MoviesController {
 
     @ApiOperation({ summary: 'Update a movie by ID' })
     @ApiResponse({ status: 200, description: 'The movie has been successfully updated.' })
+    @ApiBody({ type: Movie })
     @Put(':id')
     async updateMovie(@Param('id') id: number, @Body() movieData: Partial<Movie>): Promise<Movie> {
         return this.moviesService.updateMovie(id, movieData);

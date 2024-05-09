@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Delete, Param, Body, Query } from '@nestjs/common';
 import { GenresService } from './genres.service';
 import { Genre } from './genre.entity';
-import { ApiOperation, ApiResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiQuery, ApiTags, ApiBody } from '@nestjs/swagger';
 
 @ApiTags('Genres')
 @Controller('genres')
@@ -26,6 +26,7 @@ export class GenresController {
 
     @ApiOperation({ summary: 'Add a new genre' })
     @ApiResponse({ status: 201, description: 'Returns the newly created genre', type: Genre })
+    @ApiBody({ type: Genre })
     @Post()
     async addGenre(@Body() genreData: Partial<Genre>): Promise<Genre> {
         return this.genresService.addGenre(genreData);
