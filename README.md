@@ -35,6 +35,14 @@ $ npm install
 1. Install [Xampp](https://www.apachefriends.org/download.html)
 2. Acess [phpmyadmin](http://localhost/phpmyadmin/) and create the database 'movies'
 3. I changed Xampp to run MySQL on the port 3307 (port already in use), so the port of app.module.ts is 3307 (normally is 3306)
+```bash
+TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3307,
+      ...
+```
+
    
 ## Running the app
 ```bash
