@@ -56,6 +56,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 ## Swagger UI
+To see the swagger page only enter in the following link:
 http://localhost:3000/api
 
 ## API endpoints.
