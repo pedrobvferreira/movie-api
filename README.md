@@ -5,7 +5,12 @@
 </p>
 
 ## Description
-Was necessary to install on my machine: [NodeJS](https://nodejs.org/en/), [NestJS](https://nestjs.com/), [class-validator](https://www.npmjs.com/package/class-validator), and MySQL
+Was necessary to install on my machine:
+1. [NodeJS](https://nodejs.org/en/)
+2.  [NestJS](https://nestjs.com/), 
+3.  [class-validator](https://www.npmjs.com/package/class-validator)
+4.  [MySQL](https://docs.nestjs.com/techniques/database)
+5.  [Swagger](https://docs.nestjs.com/openapi/introduction)
 
 ```bash
 # NodeJS
@@ -16,6 +21,9 @@ $ npm install class-validator --save
 
 # MySQL
 $ npm install mysql --save
+
+# Swagger
+$ npm install --save @nestjs/swagger swagger-ui-express
 ```
 
 ## Installation
@@ -24,9 +32,10 @@ $ npm install
 ```
 
 ## Install the DB
-1. Install Xampp
-2. Acess http://localhost/phpmyadmin/ and create the database 'movies'
-
+1. Install [Xampp](https://www.apachefriends.org/download.html)
+2. Acess [phpmyadmin](http://localhost/phpmyadmin/) and create the database 'movies'
+3. I changed Xampp to run MySQL on the port 3307 (port already in use), so the port of app.module.ts is 3307 (normally is 3306)
+   
 ## Running the app
 ```bash
 # development
@@ -38,11 +47,13 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## Swagger UI
+http://localhost:3000/api
 
 ## API endpoints.
 Access the NestJS application at http://localhost:3000
 
-- List Movies
+- List Movies without pagination
 ```
 GET
 http://localhost:3000/movies
@@ -79,7 +90,7 @@ DELETE
 http://localhost:3000/movies/1
 ```
 
-- List Genres
+- List Genres without pagination
 ```
 GET
 http://localhost:3000/genres
