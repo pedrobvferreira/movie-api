@@ -58,6 +58,12 @@ Access the NestJS application at http://localhost:3000
 GET
 http://localhost:3000/movies
 ```
+- List Movies  with pagination
+```
+GET
+http://localhost:3000/movies/paginated?page=1&limit=1
+```
+
 - Add Movie
 ```
 POST
@@ -66,8 +72,8 @@ http://localhost:3000/movies
 Body
 {
     "title":"teste",
-    "description":"teste",
-    "releaseDate": null,
+    "description": "teste",
+    "releaseDate": "2024-09-05T09:23:00.42Z",
     "genres": []
 }
 ```
@@ -80,7 +86,7 @@ Body
 {
     "title":"teste",
     "description":"teste",
-    "releaseDate": null,
+    "releaseDate": "2024-09-05T09:23:00.42Z",
     "genres": []
 }
 ```
@@ -89,13 +95,23 @@ Body
 DELETE
 http://localhost:3000/movies/1
 ```
-
+- Search Movies
+```
+GET
+http://localhost:3000/movies/search?title=teste&genre=M
+```
+---------------------
 - List Genres without pagination
 ```
 GET
 http://localhost:3000/genres
 ```
----------------------
+
+- List Genres with pagination
+```
+GET
+http://localhost:3000/genres/paginated?page=1&limit=1
+```
 - Add Genre
 ```
 POST
