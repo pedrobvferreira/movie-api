@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Movie } from './movies/movie.entity';
 import { Genre } from './genres/genre.entity';
 import { MoviesModule } from './movies/movies.module'; // Import MoviesModule
 import { GenresModule } from './genres/genres.module'; // Import GenresModule
+import { LoggingMiddleware } from './middleware/logging.middleware';
 
 @Module({
   imports: [
@@ -24,4 +25,10 @@ import { GenresModule } from './genres/genres.module'; // Import GenresModule
     GenresModule
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggingMiddleware)
+      .forRoutes('*'); // Apply the middleware for all routes
+  }
+}
