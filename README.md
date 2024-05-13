@@ -138,7 +138,7 @@ http://localhost:3000/genres/1
 
 ---------------------
 ## Extras 
-To put running containers with Docker, we need to do the following
+To put running the app in containers with Docker, we need to do the following
 
 1. Building the containers
 ```bash
