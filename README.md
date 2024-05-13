@@ -43,7 +43,6 @@ TypeOrmModule.forRoot({
       ...
 ```
 
-   
 ## Running the app
 ```bash
 # development
@@ -136,11 +135,54 @@ Body
 DELETE
 http://localhost:3000/genres/1
 ```
+
 ---------------------
 ## Extras 
-I try to running containers at Docker, but get some errors, even so to build the app would be
+To put running containers with Docker, we need to do the following
+
+1. Building the containers
+```bash
+$ docker compose up
+```
+2. Once the containers are up and running, we can access pgAdmin by visiting http://localhost:5050 in our web browser.
+Login to pgAdmin by using the email and password in the docker-compose.yml file:
+- email: admin@admin.com
+- pass: pgadmin4
+
+3. Setting up pgAdmin and PostgreSQL
+
+In the left-hand sidebar, click Servers to expand the Servers menu, select Register -> Server
+
+In the Connection tab, fill in the following details:
+- Host name/address: db
+- Port: 5432
+- Maintenance database: postgres
+- Username: postgres
+- Password: postgres
+
+Click Save to save the server configuration.
+
+4. Connecting to PostgreSQL Server from NestJS
+```bash
+$ npm install --save @nestjs/typeorm typeorm pg
+```
+
+5. Next, in the app.module.ts file, change the following code:
+```bash
+TypeOrmModule.forRoot({
+    type: 'postgres',
+    host: 'db',
+    port: 5432,
+    username: 'postgres',
+    password: 'postgres',
+    database: 'postgres',
+    entities: [],
+    synchronize: true,
+    autoLoadEntities: true,
+}),
+```
+
+6. Finally, Run
 ```bash
 $ docker compose up --build
 ```
-
-If the containers where up and running, we can access the NestJS application at http://localhost:3000 and phpMyadmin at http://localhost:8080.

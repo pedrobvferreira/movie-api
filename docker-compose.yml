@@ -2,40 +2,36 @@ version: '3.9'
 
 services:
   db:
-    image: mysql:latest
+    image: postgres
     restart: always
-    container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: movies
-    ports:
-      - '3308:3308' # Mapping host port 3308 to container port 3306
+      - POSTGRES_PASSWORD=postgres
+    container_name: postgres
     volumes:
-      - ./data:/var/lib/mysql
-      
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    restart: always
-    container_name: phpmyadmin
-    environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: root
+      - ./pgdata:/var/lib/postgresql/data
     ports:
-      - '8080:80'
-    depends_on:
-      - db
+      - '5432:5432'
 
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: movie-api
+    container_name: nest-docker-postgres
     ports:
       - '3000:3000'
     depends_on:
       - db
-      - phpmyadmin
-    environment:
-      - TYPEORM_HOST=db
     volumes:
       - ./src:/app/src
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: nest-pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=pgadmin4
+    ports:
+      - '5050:80'
+    depends_on:
+      - db
